@@ -3,6 +3,7 @@
 This project is a WebSocket server dashboard that allows you to manage and send tasks to connected clients. The project is divided into two main parts: the server and the extension.
 
 ## Project Structure
+
 extension/
 ├── background.js
 ├── content.js
@@ -19,8 +20,11 @@ server/
 ├── templates/
 │   ├── index.html
 │   └── tasklist.html
+testWebSocket.py
 task_data/
 ├── 28a61b71-da36-4a5b-bc52-036b25cacfb7.json
+├── 70917f37-1677-4d85-b6bb-a2cee3e5b368.json
+└── ed93b9c1-29f5-42ba-a4a3-7598a79f7174.json
 
 ## Getting Started
 
