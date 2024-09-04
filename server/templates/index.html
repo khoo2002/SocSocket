@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Server Dashboard</title>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+    <h1>WebSocket Server Dashboard</h1>
+    <h2>Connected Clients</h2>
+    <ul id="client-list">
+        {% for client_id, client_info in clients.items() %}
+        <li id="{{ client_id }}">{{ client_id }} - {{ client_info.ip }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Send to</h2>
+    <input type="text" id="ClientID-input" placeholder="Enter numberOfResults">
+    <hr>
+    <h3>Send Message</h3>
+    <input type="text" id="message-input" placeholder="Enter message">
+    <button onclick="sendMessage()">Send</button>
+    <h2>OR</h2>
+    <hr>
+    <h3>Send Task</h3>
+    <input type="text" id="task-input" placeholder="Enter task">
+    <input type="text" id="searchText-input" placeholder="Enter searchText">
+    <input type="text" id="numberOfResults-input" placeholder="Enter numberOfResults">
+    
+    <button onclick="sendTask()">Send</button>
+</body>
+</html>

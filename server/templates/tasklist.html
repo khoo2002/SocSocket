@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task List</h1>
+    <div class="search-box">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" placeholder="Search for task ID...">
+    </div>
+    <table id="taskTable">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Tasks will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const taskTableBody = document.querySelector('#taskTable tbody');
+
+            function fetchTasks() {
+                fetch('/tasks')
+                    .then(response => response.json())
+                    .then(data => {
+                        const tasks = data.tasks;
+                        updateTable(tasks);
+                    })
+                    .catch(error => console.error('Error fetching tasks:', error));
+            }
+
+            function updateTable(tasks) {
+                taskTableBody.innerHTML = '';
+                tasks.forEach(taskId => {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.textContent = taskId;
+                    cell.addEventListener('click', () => {
+                        window.location.href = `/task_data/${taskId}.json`;
+                    });
+                    row.appendChild(cell);
+                    taskTableBody.appendChild(row);
+                });
+            }
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const rows = taskTableBody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cell = row.querySelector('td');
+                    if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            fetchTasks();
+        });
+    </script>
+</body>
+</html>

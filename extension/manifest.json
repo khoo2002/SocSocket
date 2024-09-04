@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Socscraper",
+    "version": "1.0",
+    "permissions": [
+        "storage",
+        "tabs", 
+        "scripting", 
+        "activeTab",
+        "search",
+        "webNavigation"  // Add if necessary for tab management
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.facebook.com/"],
+            "js": ["facebook-login.js"]}
+        ,
+        {
+            "matches": ["https://tiktok.com/","https://www.tiktok.com/*"],
+            "js": ["tiktok.js"]}
+    ],
+    "host_permissions": [
+      "http://localhost:8765/*",
+      "https://www.google.com/*",
+      "https://www.facebook.com/*",
+      "https://www.tiktok.com/*"
+    ]
+}
